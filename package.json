@@ -1,0 +1,16 @@
+{
+  "name": "@aggripa/connection-manager",
+  "version": "1.0.0",
+  "description": "A Singleton Class used to register and distribute database connections",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --timeout=10000 './**/*.spec.js'"
+  },
+  "author": "Aggripa Development Team",
+  "license": "ISC",
+  "dependencies": {
+    "chai": "^4.2.0",
+    "lodash": "^4.17.20",
+    "mocha": "^8.1.3"
+  }
+}
