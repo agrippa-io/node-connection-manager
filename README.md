@@ -1,4 +1,4 @@
-# connection-manager #
+# @agrippa-io/node-connection-manager #
 
 ### What is this repository for? ###
 This module is a Singleton designed to manage Database Connections within
@@ -7,13 +7,13 @@ This module is a Singleton designed to manage Database Connections within
 ### How do I get set up? ###
 
 Simply run the following command in the desired Application:
-`npm install @aggripa/connection-manager`
+`npm install @agrippa-io/connection-manager`
 
 ### Usage ###
 #### Initializing the ConnectionManager ####
 ```
 // Importing the package will automatically instantiate the Connection Manager
-const ConnectionManager = require('@aggripa/connection-manager');
+const ConnectionManager = require('@agrippa-io/connection-manager');
 ```
 
 #### Creating Connections ####
@@ -54,7 +54,7 @@ but we recommend sticking to the conventions.
 
 ```
 // Import STORE constants
-const STORE = require('@aggripa/connection-manager/stores.constants';
+const STORE = require('@agrippa-io/connection-manager/stores.constants';
 // Access
 console.log(STORE.MONGO); // prints 'mongo'
 console.log(STORE.MYSQL); // prints 'mysql'
