@@ -20,7 +20,7 @@ class ConnectionManager {
   }
 
   set namedConnections(noop) {
-    throw new Error('ConnectionManager.namedConnections is a private variable and cannot be assigned');
+    throw new Error('ConnectionManager.namedConnections is a private variable and cannot be assigned')
   }
 
   /**
@@ -40,23 +40,23 @@ class ConnectionManager {
   addNamedConnections(namedConnections) {
     // Ensure namedConnections is Array
     if (!namedConnections) {
-      throw new Error('\'namedConnections\' is required to set Connections')
+      throw new Error("'namedConnections' is required to set Connections")
     }
     if (!namedConnections instanceof Array) {
-      throw new Error('\'namedConnections\' must be an Array');
+      throw new Error("'namedConnections' must be an Array")
     }
 
     for (const namedConnection of namedConnections) {
       const { storeName, connectionName, connection } = namedConnection
       // Ensure Compliant Named Objects
       if (!storeName) {
-        throw new Error('\'storeName\' is required to add a Named Connection')
+        throw new Error("'storeName' is required to add a Named Connection")
       }
       if (!connectionName) {
-        throw new Error('Named Connections require a \'name\'')
+        throw new Error("Named Connections require a 'name'")
       }
       if (!connection) {
-        throw new Error('Named Connections require a \'connection\'')
+        throw new Error("Named Connections require a 'connection'")
       }
       // Add Connection
       this.addNamedConnection(storeName, connectionName, connection)
@@ -74,13 +74,13 @@ class ConnectionManager {
    */
   addNamedConnection(storeName, connectionName, connection) {
     if (!storeName) {
-      throw new Error('\'storeName\' is required to add a Named Connection')
+      throw new Error("'storeName' is required to add a Named Connection")
     }
     if (!connectionName) {
-      throw new Error('\'connectionName\' is required to add a Named Connection')
+      throw new Error("'connectionName' is required to add a Named Connection")
     }
     if (!connection) {
-      throw new Error('\'connection\' is required to add a Named Connection')
+      throw new Error("'connection' is required to add a Named Connection")
     }
     // Ensure Store Object
     if (!this._namedConnections[storeName]) {
@@ -105,9 +105,7 @@ class ConnectionManager {
     const _namedConnections = []
     for (const storeName of stores) {
       const storeNamedConnections = this.getStoreNamedConnections(storeName)
-      storeNamedConnections.forEach(namedConnection =>
-        _namedConnections.push(namedConnection)
-      )
+      storeNamedConnections.forEach((namedConnection) => _namedConnections.push(namedConnection))
     }
     return _namedConnections
   }
@@ -125,11 +123,11 @@ class ConnectionManager {
   getStoreNamedConnections(storeName) {
     const connections = this._namedConnections[storeName]
     return connections
-      ? Object.keys(connections).map(connectionName => ({
-        storeName,
-        connectionName,
-        connection: connections[connectionName]
-      }))
+      ? Object.keys(connections).map((connectionName) => ({
+          storeName,
+          connectionName,
+          connection: connections[connectionName],
+        }))
       : []
   }
 
@@ -142,14 +140,13 @@ class ConnectionManager {
    */
   getNamedConnection(storeName, connectionName) {
     if (!storeName) {
-      throw new Error('\'storeName\' is required to add a Named Connection')
+      throw new Error("'storeName' is required to add a Named Connection")
     }
     if (!connectionName) {
-      throw new Error('\'connectionName\' is required to add a Named Connection')
+      throw new Error("'connectionName' is required to add a Named Connection")
     }
     // Return connection or null
-    return this._namedConnections[storeName]
-    && this._namedConnections[storeName][connectionName]
+    return this._namedConnections[storeName] && this._namedConnections[storeName][connectionName]
       ? this._namedConnections[storeName][connectionName]
       : null
   }
@@ -163,20 +160,20 @@ class ConnectionManager {
   removeNamedConnections(namedConnections) {
     // Ensure namedConnections is Array
     if (!namedConnections) {
-      throw new Error('\'namedConnections\' is required to set Connections')
+      throw new Error("'namedConnections' is required to set Connections")
     }
     if (!namedConnections instanceof Array) {
-      throw new Error('\'namedConnections\' must be an Array');
+      throw new Error("'namedConnections' must be an Array")
     }
     const _removedNamedConnections = []
     for (const namedConnection of namedConnections) {
       const { storeName, connectionName } = namedConnection
       // Ensure Compliant Named Objects
       if (!storeName) {
-        throw new Error('\'storeName\' is required to add a Named Connection')
+        throw new Error("'storeName' is required to add a Named Connection")
       }
       if (!connectionName) {
-        throw new Error('Named Connections require a \'name\'')
+        throw new Error("Named Connections require a 'name'")
       }
       // Add Connection
       const _removedNamedConnection = this.removeNamedConnection(storeName, connectionName)
@@ -194,10 +191,10 @@ class ConnectionManager {
    */
   removeNamedConnection(storeName, connectionName) {
     if (!storeName) {
-      throw new Error('\'storeName\' is required to remove a connection')
+      throw new Error("'storeName' is required to remove a connection")
     }
     if (!connectionName) {
-      throw new Error('\'connectionName\' is required to remove a connection')
+      throw new Error("'connectionName' is required to remove a connection")
     }
     if (this._namedConnections[storeName]) {
       const connection = this._namedConnections[storeName][connectionName]
@@ -208,7 +205,7 @@ class ConnectionManager {
         ? {
             storeName,
             connectionName,
-            connection
+            connection,
           }
         : null
     }
@@ -224,8 +221,7 @@ class ConnectionManager {
     const _removedNamedConnections = []
     for (const storeName of Object.keys(this._namedConnections)) {
       const _storeConnections = this.getStoreNamedConnections(storeName)
-      this.removeNamedConnections(_storeConnections)
-        .forEach(namedConnection => {
+      this.removeNamedConnections(_storeConnections).forEach((namedConnection) => {
         _removedNamedConnections.push(namedConnection)
       })
     }
@@ -240,42 +236,10 @@ class ConnectionManager {
     console.log('namedConnections', this._namedConnections)
     console.log('*** Connection Manager - DEBUG -  END  ***')
   }
-
-  /**
-   * Adds a Named Mongo Connection
-   *
-   * @param connectionName - Name of Connection
-   * @param connection - Mongo Connection
-   * @returns {connection} - Mongo Connection
-   */
-  addMongoConnection(connectionName, connection) {
-    return this.addNamedConnection(STORES.MONGO, connectionName, connection)
-  }
-
-  /**
-   * Gets a Mongo connection from the ConnectionManager if exists
-   *
-   * @param connectionName String - Name of the connection
-   * @returns {null|*} - Returns the connection if exists, otherwise null
-   */
-  getMongoConnection(connectionName) {
-    return this.getNamedConnection(STORES.MONGO, connectionName)
-  }
-
-  /**
-   * Removes Mongo Connection from ConnectionManager
-   *
-   * @param connectionName String - Name of Connection
-   * @returns {null|*} Returns removed connection if exists, otherwise null
-   */
-  removeMongoConnection(connectionName) {
-    return this.removeNamedConnection(STORES.MONGO, connectionName)
-  }
-
 }
 
 // Ensures ConnectionManager is a Singleton
-const instance = new ConnectionManager();
-Object.freeze(instance);
+const instance = new ConnectionManager()
+Object.freeze(instance)
 
-module.exports = instance;
+module.exports = instance
