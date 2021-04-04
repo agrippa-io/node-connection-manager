@@ -1,5 +1,5 @@
 {
-  "name": "@aggripa/connection-manager",
+  "name": "@agrippa-io/node-connection-manager",
   "version": "1.0.0",
   "description": "A Singleton Class used to register and distribute database connections",
   "main": "index.js",
