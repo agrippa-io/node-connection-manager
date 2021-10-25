@@ -7,13 +7,13 @@ This module is a Singleton designed to manage Database Connections within
 ### How do I get set up? ###
 
 Simply run the following command in the desired Application:
-`npm install @agrippa-io/connection-manager`
+`npm install @agrippa-io/node-connection-manager`
 
 ### Usage ###
-#### Initializing the ConnectionManager ####
+#### Initializing the ConnectionStore ####
 ```
 // Importing the package will automatically instantiate the Connection Manager
-const ConnectionManager = require('@agrippa-io/connection-manager');
+const ConnectionStore = require('@agrippa-io/connection-manager');
 ```
 
 #### Creating Connections ####
@@ -44,7 +44,8 @@ const sequalize_prod = new Sequelize(MYSQL_URI_PROD);
 Users conceptualize what type of connection they are accessing.
 
 ##### Stores #####
-A `STORE` Map has been provided to help promote grouping connections by popular
+A `TYPE_STORE` Map has been provided to help promote grouping connections by 
+popular
 Persistence Technologies, including:
  * MONGO
  * MYSQL
@@ -62,12 +63,12 @@ console.log(STORE.MYSQL); // prints 'mysql'
 
 ##### Named Connections #####
 `Named Connections` to simplify the access and registration of connections
-within the `ConnectionManager`.
+within the `ConnectionStore`.
  
 `Named Connections` are used to quickly register/retrieve connections. This
 helps create self-documented coding patterns and reduces the learning-curve for
 using the module and provide a consistent means of map/reduce/filter when
-working with the `ConnectionManager` `getter/setter` methods.
+working with the `ConnectionStore` `getter/setter` methods.
 
 `Named Connections` are JSON Objects with the following properties:
  * storeName {String} - Name of the Store
@@ -87,7 +88,7 @@ const namedConnection_test = {
 Continued based on `Create Connections` examples above:
 ```
 // Register a single connection
-ConnectionManager.addNamedConnection(
+ConnectionStore.addNamedConnection(
   STORE.MONGO,
   'mongo-test',
   connection_test
@@ -115,32 +116,32 @@ const namedConnections = [
 ];
 
 // Register Many Connections in a single method call
-ConnectionManager.addNamedConnections(namedConnections);
+ConnectionStore.addNamedConnections(namedConnections);
 ```
 
 #### Accessing Connections ####
 There are 3 methods for retrieving `Named Connections` from the
- `ConnectionManager`:
+ `ConnectionStore`:
  - `getNamedConnections()` - Returns all `Named Connections` inside the
-  `ConnectionManager`
+  `ConnectionStore`
  - `getStoreNamedConnections(storeName)` - Returns all `Named Connections` for
   the provided `Store`
  - `getNamedConnection(storeName, connectionName)` - Returns a single
   `Named Connection` or `null` if no matching connection
 ```
-// Get an array of ALL connections in the ConnectionManager
+// Get an array of ALL connections in the ConnectionStore
 // Returns an Array of Named Connections
-const namedConnetions = ConnectionManager.getNamedConnections();
+const namedConnetions = ConnectionStore.getNamedConnections();
 
 // Get an array of ALL connections for a particular STORE
 // Returns an Array of Named Connections
-const mongoNamedConnections = ConnectionManager.getStoreNamedConnections
+const mongoNamedConnections = ConnectionStore.getStoreNamedConnections
 (STORE.MONGO);
-const mysqlNamedConnections = ConnectionManager.getStoreNamedConnections
+const mysqlNamedConnections = ConnectionStore.getStoreNamedConnections
 (STORE.MYSQL);
 
 // Get a specific Named Connection
-const productionNamedConnection = ConnectionManager.getNamedConnection
+const productionNamedConnection = ConnectionStore.getNamedConnection
 (STORE.MONGO, 'production');
 ```
 
@@ -156,50 +157,47 @@ const {
 
 #### Removing Connections ####
 There are 3 methods for removing `Named Connections` from the
- `ConnectionManager`:
+ `ConnectionStore`:
  * `removeNamedConnection(storeName, connectionName)` - Returns removed `Named
    Connections`
  * `removeNamedConnections(namedConnections)` - Returns all removed `Named
- Connections` from `ConnectionManager`
+ Connections` from `ConnectionStore`
  * `clearNamedConnections()` - Returns all removed `Named Connection` from 
-  `ConnectionManager`
+  `ConnectionStore`
 
 ```
 // Remove a specific Named Connection
-const testNamedConnection = ConnectionManager.removeNamedConnection(STORE.MONGO, 'test');
+const testNamedConnection = ConnectionStore.removeNamedConnection(STORE.MONGO, 'test');
 
 // Remove an array of Named Connections of mixed Stores
 // The named connections can omit the connection itself
 // Returns an Array of removed Named Connections
-const removedNamedConnections = ConnectionManager.removeNamedConnections([
+const removedNamedConnections = ConnectionStore.removeNamedConnections([
     { storeName: STORE.MONGO, connectionName: 'production' },
     { storeName: STORE.MYSQL, connectionName: 'production' },
 ]);
 
-// Remove ALL connections in the ConnectionManager
+// Remove ALL connections in the ConnectionStore
 // Returns an Array of Named Connections
-const removedRemainingNamedConnetions = ConnectionManager.clearNamedConnections();
+const removedRemainingNamedConnetions = ConnectionStore.clearNamedConnections();
 ```
 
 #### READ-ONLY Class Properties ####
-You can access a JSON Object of the `ConnectionManager` current state:
+You can access a JSON Object of the `ConnectionStore` current state:
 ```
-console.log(ConnectionManager.namedConnections);
+console.log(ConnectionStore.namedConnections);
 ```
 
 #### DEBUGGING ####
-We have provided `ConnectionManager.debug()` that will log the state of the 
-`ConnectionManager` at the time of invocation:
+We have provided `ConnectionStore.debug()` that will log the state of the 
+`ConnectionStore` at the time of invocation:
 
 ```
-// Prints the State of the ConnectionManager
-ConnectionManager.debug();
+// Prints the State of the ConnectionStore
+ConnectionStore.debug();
 ```
 
 ### Testing ###
 Execute the following command within the repository:
 `npm test`
 
-### Who do I talk to? ###
-
-Author: Matthew Valli

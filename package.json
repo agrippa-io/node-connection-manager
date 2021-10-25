@@ -1,16 +1,22 @@
 {
   "name": "@agrippa-io/node-connection-manager",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A Singleton Class used to register and distribute database connections",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --timeout=10000 './**/*.spec.js'"
+    "test": "mocha --timeout=10000 './**/*.test.js'"
   },
   "author": "Aggripa Development Team",
   "license": "ISC",
   "dependencies": {
+    "@agrippa-io/node-utils": "^1.0.0",
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.2.22",
+    "@types/mocha": "^9.0.0",
+    "@types/node": "^16.11.5",
     "chai": "^4.2.0",
-    "lodash": "^4.17.20",
     "mocha": "^8.1.3"
   }
 }
