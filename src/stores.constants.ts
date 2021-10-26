@@ -4,5 +4,5 @@ export const TYPE_STORE = {
   MYSQL: 'mysql',
   RABBIT_MQ: 'rabbitmq',
   REDIS: 'redis',
-  SEQUALIZE: 'squalize',
+  SEQUALIZE: 'sequalize',
 }
