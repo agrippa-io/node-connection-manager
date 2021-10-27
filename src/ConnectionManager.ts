@@ -1,9 +1,9 @@
 import ConnectionStore from './ConnectionStore'
 
-import { Logger } from '@agrippa-io/node-utils/src'
+import { Logger } from '@agrippa-io/node-utils'
 import { InterfaceNamedConnection } from './InterfaceNamedConnection'
 
-export interface InterfaceEdisenConnectionManagerProps {
+export interface InterfaceConnectionManagerProps {
   connectionConfig: InterfaceNamedConnection[]
   ConnectionStore: typeof ConnectionStore
 }
@@ -14,7 +14,7 @@ export class ConnectionManager {
   private connectionConfig: InterfaceNamedConnection[]
   private ConnectionStore: typeof ConnectionStore
 
-  private constructor(props: InterfaceEdisenConnectionManagerProps) {
+  private constructor(props: InterfaceConnectionManagerProps) {
     this.connectionConfig = props.connectionConfig
     this.ConnectionStore = props.ConnectionStore
   }

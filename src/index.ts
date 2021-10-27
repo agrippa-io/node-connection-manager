@@ -1,5 +1,5 @@
 export * from './ConnectionManager'
-export * from './ConnectionStore'
+export { default as ConnectionStore } from './ConnectionStore'
 export * from './InterfaceConnectionProps'
 export * from './InterfaceNamedConnection'
 export * from './stores.constants'
