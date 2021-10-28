@@ -84,7 +84,7 @@ export class ConnectionManager {
 
   async ensure() {
     for (const config of this.connectionConfig) {
-      const { storeName, servicePath, connectionName, shouldEnsure, ensureHandlerName } = config
+      const { props, storeName, servicePath, connectionName, shouldEnsure, ensureHandlerName } = config
 
       if (!shouldEnsure) {
         continue
@@ -96,7 +96,7 @@ export class ConnectionManager {
         const handlerRef = require(`${servicePath}/connection/${funcName}`)
         const handler = typeof handlerRef === 'function' ? handlerRef : handlerRef.default
 
-        await handler()
+        await handler(props)
         Logger.info(`${storeName}['${connectionName}'] - Configured`)
       } catch (err) {
         Logger.error(`${storeName}['${connectionName}'] - Failed to Configure`, err)
