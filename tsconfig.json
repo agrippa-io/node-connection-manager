@@ -2,8 +2,8 @@
   "compilerOptions": {
     "allowJs": true,
     "declaration": true,
-    "target": "es6",
-    "module": "commonjs",
+    "target": "esnext",
+    "module": "esnext",
     "sourceMap": true,
     "outDir": "./dist",
     "rootDir": "./src",
