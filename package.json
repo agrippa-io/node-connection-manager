@@ -1,6 +1,6 @@
 {
   "name": "@agrippa-io/node-connection-manager",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "type": "module",
   "description": "A Singleton Class used to register and distribute database connections",
   "main": "./dist/index.js",
@@ -15,7 +15,7 @@
   "author": "Aggripa Development Team",
   "license": "ISC",
   "dependencies": {
-    "@agrippa-io/node-utils": "^1.0.7",
+    "@agrippa-io/node-utils": "^1.0.8",
     "lodash": "^4.17.21"
   },
   "devDependencies": {
