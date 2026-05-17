@@ -1,4 +1,4 @@
-import { InterfaceConnectionProps } from './InterfaceConnectionProps'
+import { InterfaceConnectionProps } from 'src/InterfaceConnectionProps'
 
 export interface InterfaceNamedConnection {
   props?: InterfaceConnectionProps

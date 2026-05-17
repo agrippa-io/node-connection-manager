@@ -1,18 +1,24 @@
 {
   "compilerOptions": {
-    "allowJs": true,
-    "declaration": true,
-    "target": "esnext",
-    "module": "esnext",
-    "sourceMap": true,
-    "outDir": "./dist",
-    "rootDir": "./src",
+    "target": "es2022",
+    "module": "commonjs",
     "moduleResolution": "node",
     "esModuleInterop": true,
-    "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "typeRoots": ["./@types", "./node_modules/@types"]
+    // TODO: enable `strict` — the legacy ConnectionManager/ConnectionStore
+    // source has ~20 implicit-any sites that need typing first.
+    "strict": false,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "declaration": true,
+    "outDir": "dist",
+    "rootDir": "src",
+    "baseUrl": ".",
+    "paths": {
+      "src/*": ["src/*"]
+    },
+    "types": ["node", "vitest/globals"]
   },
-  "include": ["src/**/*.ts", "src/**/*.js"],
-  "exclude": ["node_modules"]
+  "include": ["src"],
+  "exclude": ["node_modules", "dist", "coverage"]
 }

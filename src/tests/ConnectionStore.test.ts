@@ -1,8 +1,8 @@
 import { assert, expect } from 'chai'
 import { isEqual } from 'lodash'
-import ConnectionStore from '../ConnectionStore'
-import ConnectionStore2 from '../ConnectionStore'
-import { TYPE_STORE } from '../stores.constants'
+import ConnectionStore from 'src/ConnectionStore'
+import ConnectionStore2 from 'src/ConnectionStore'
+import { TYPE_STORE } from 'src/stores.constants'
 
 const NAMED_CONNECTIONS = [
   {
@@ -239,7 +239,7 @@ describe('ConnectionStore', () => {
   })
 })
 
-function assertArraysAreEqual(actual, expected, itemValidator = (actual: any, expected: any, message: string) => {}) {
+function assertArraysAreEqual(actual: any[], expected: any[], itemValidator = (actual: any, expected: any, message: string) => {}) {
   assert.instanceOf(actual, Array, 'actual value is not an Array')
   assert.equal(actual.length, expected.length, 'actual Array does not match expected length')
   actual.forEach((actual, index) => {

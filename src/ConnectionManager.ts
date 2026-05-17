@@ -1,7 +1,7 @@
-import ConnectionStore from './ConnectionStore'
+import ConnectionStore from 'src/ConnectionStore'
 
 import { Logger } from '@agrippa-io/node-utils'
-import { InterfaceNamedConnection } from './InterfaceNamedConnection'
+import { InterfaceNamedConnection } from 'src/InterfaceNamedConnection'
 
 export interface InterfaceConnectionManagerProps {
   connectionConfig: InterfaceNamedConnection[]

@@ -1,4 +1,4 @@
-import { InterfaceNamedConnection } from './InterfaceNamedConnection'
+import { InterfaceNamedConnection } from 'src/InterfaceNamedConnection'
 
 class ConnectionStore {
   private static instance: ConnectionStore | null
