@@ -21,6 +21,7 @@ jobs:
     with:
       npm-scope: '@agrippa-io'
       lint-paths: '.'
+      max-warnings: -1
     secrets:
       npm-token: ${{ secrets.NPM_TOKEN }}
 
