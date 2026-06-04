@@ -1,0 +1,64 @@
+name: ci
+
+# Cascading CI: thin wrappers over agrippa-io/github-actions reusable
+# workflows (npm-aware). Every job feeds the terminal `ci-ok` gate — the
+# single check the org branch ruleset requires across every repo. See
+# github-actions/MIGRATION.md.
+
+on:
+  pull_request:
+    branches: [develop, development, 'release/**', main]
+  push:
+    branches: [develop, development, 'release/**', main]
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    uses: agrippa-io/github-actions/.github/workflows/npm-lint.yml@v1
+    with:
+      npm-scope: '@agrippa-io'
+      lint-paths: '.'
+    secrets:
+      npm-token: ${{ secrets.NPM_TOKEN }}
+
+  typecheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: agrippa-io/github-actions/npm/actions/setup-node-project@v1
+        with:
+          npm-scope: '@agrippa-io'
+          npm-token: ${{ secrets.NPM_TOKEN }}
+      - run: npm run typecheck
+
+  test:
+    uses: agrippa-io/github-actions/.github/workflows/npm-test.yml@v1
+    with:
+      npm-scope: '@agrippa-io'
+      test-command: 'vitest run --passWithNoTests'
+    secrets:
+      npm-token: ${{ secrets.NPM_TOKEN }}
+
+  build:
+    needs: [lint, typecheck, test]
+    uses: agrippa-io/github-actions/.github/workflows/npm-build.yml@v1
+    with:
+      npm-scope: '@agrippa-io'
+      upload-artifact: false
+    secrets:
+      npm-token: ${{ secrets.NPM_TOKEN }}
+
+  ci-ok:
+    name: ci-ok
+    if: always()
+    needs: [lint, typecheck, test, build]
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          [ "${{ needs.lint.result }}" = "success" ] \
+            && [ "${{ needs.typecheck.result }}" = "success" ] \
+            && [ "${{ needs.test.result }}" = "success" ] \
+            && [ "${{ needs.build.result }}" = "success" ]
