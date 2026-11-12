@@ -1,5 +1,11 @@
 # @agrippa-io/node-connection-manager #
 
+> [!IMPORTANT]
+> **Frozen (2026-11): bug fixes only.** This package serves the Mongo-era
+> services (`node-event-handler`, `node-service-project-generation`). New
+> services should not depend on it. Replacement: nothing: new services use Postgres + Drizzle. See
+> [shared-libs-1](https://github.com/agrippa-io/agrippa-stack/tree/develop/epics/shared-libs-1).
+
 ### What is this repository for? ###
 This module is a Singleton designed to manage Database Connections within
  applications.
